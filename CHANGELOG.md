@@ -1,4 +1,4 @@
-# Changelog for `platzi-cryptography`
+# Changelog for `cryptography-hs`
 
 All notable changes to this project will be documented in this file.
 

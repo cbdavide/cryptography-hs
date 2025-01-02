@@ -1,1 +1,1 @@
-# platzi-cryptography
+# Cryptography HS
