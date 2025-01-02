@@ -25,7 +25,8 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      NumberGenerator.CLI
+      NumberGenerator.Types
   other-modules:
       Paths_cryptography_hs
   hs-source-dirs:
