@@ -3,7 +3,46 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/topics/lock_files
 
-packages: []
+packages:
+- completed:
+    name: botan-bindings
+    pantry-tree:
+      sha256: 115aac72555bb285a1f2371da50104115e32dac517b1abbc26b4a317b342f385
+      size: 3465
+    sha256: 6c0de53e757b529a772f29a40d1ad1af49621c055f76700371f23067011311bd
+    size: 228530
+    subdir: botan-bindings
+    url: https://github.com/haskellfoundation/botan/archive/99de68c3938187b7ab740c6534ec032a4a236747.tar.gz
+    version: 0.0.1.0
+  original:
+    subdir: botan-bindings
+    url: https://github.com/haskellfoundation/botan/archive/99de68c3938187b7ab740c6534ec032a4a236747.tar.gz
+- completed:
+    name: botan-low
+    pantry-tree:
+      sha256: 7cfb8269189b321c3cdd2afa098d87151e59074e5a706a0db003f69c0606a836
+      size: 6624
+    sha256: 6c0de53e757b529a772f29a40d1ad1af49621c055f76700371f23067011311bd
+    size: 228530
+    subdir: botan-low
+    url: https://github.com/haskellfoundation/botan/archive/99de68c3938187b7ab740c6534ec032a4a236747.tar.gz
+    version: 0.0.1.0
+  original:
+    subdir: botan-low
+    url: https://github.com/haskellfoundation/botan/archive/99de68c3938187b7ab740c6534ec032a4a236747.tar.gz
+- completed:
+    name: botan
+    pantry-tree:
+      sha256: 30d27239f8ace344632d4f82436954572f80cb6cc5e6cb3319874a759700b31f
+      size: 4680
+    sha256: 6c0de53e757b529a772f29a40d1ad1af49621c055f76700371f23067011311bd
+    size: 228530
+    subdir: botan
+    url: https://github.com/haskellfoundation/botan/archive/99de68c3938187b7ab740c6534ec032a4a236747.tar.gz
+    version: 0.0.1.0
+  original:
+    subdir: botan
+    url: https://github.com/haskellfoundation/botan/archive/99de68c3938187b7ab740c6534ec032a4a236747.tar.gz
 snapshots:
 - completed:
     sha256: 1435a8c3c419d01af402eef9c0938adb601031d8ed625622ef1519fa726db042

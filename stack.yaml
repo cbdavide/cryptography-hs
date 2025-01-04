@@ -35,12 +35,13 @@ packages:
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
 #
-# extra-deps:
-# - acme-missiles-0.3
-# - git: https://github.com/commercialhaskell/stack.git
-#   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
-#
-# extra-deps: []
+extra-deps:
+  - github: haskellfoundation/botan
+    commit: 99de68c3938187b7ab740c6534ec032a4a236747
+    subdirs:
+      - botan-bindings
+      - botan-low
+      - botan
 
 # Override default flag values for project packages and extra-deps
 # flags: {}
