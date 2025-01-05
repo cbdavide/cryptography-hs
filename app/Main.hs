@@ -1,11 +1,11 @@
 module Main (main) where
 
-import NumberGenerator.CLI
-import NumberGenerator.Types (PRNGInput(..))
+import RandomNumberGenerator.CLI
+import RandomNumberGenerator.Types (RNGInput(..))
 
 import Options.Applicative
 
-data InputData = Number PRNGInput | Undefined
+data InputData = Number RNGInput | Undefined
     deriving (Show)
 
 
@@ -14,9 +14,9 @@ parseInputData = info (commands  <**> helper)
         (  fullDesc
         <> progDesc "Cryptography utils")
     where commands = subparser
-            (command "prng"
+            (command "rng"
                 (info ((Number <$> parseNumberGeneratorInput) <**> helper)
-                (progDesc "Generate a pseudo-random number"))
+                (progDesc "Generate a random number"))
             )
 
 main :: IO ()
