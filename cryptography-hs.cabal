@@ -25,6 +25,8 @@ source-repository head
 
 library
   exposed-modules:
+      AESCipher.CLI
+      AESCipher.Types
       RandomNumberGenerator.CLI
       RandomNumberGenerator.Handler
       RandomNumberGenerator.Types
