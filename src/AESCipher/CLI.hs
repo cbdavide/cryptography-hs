@@ -3,10 +3,12 @@ module AESCipher.CLI
   parseAESCipherInput
 ) where
 
+import Data.Char (isHexDigit)
 import Data.Maybe (fromMaybe)
 
 import Options.Applicative
 import qualified AESCipher.Types as Types
+import qualified Data.Text as T
 
 parseAESCipherInput :: Parser Types.AESCipherInput
 parseAESCipherInput = Types.AESCipherInput
@@ -18,7 +20,7 @@ parseAESCipherInput = Types.AESCipherInput
         <> help "Size of the key: 128 | 192 | 256"
         <> showDefaultWith (const "128")
         )
-    <*> strOption
+    <*> option keyReader
         (  short 'k'
         <> long "key"
         <> help "Key to encrypt or decrypt the input data"
@@ -73,3 +75,9 @@ keySizeReader = eitherReader $ \arg -> case arg of
     "192" -> return Types.KeySize192
     "256" -> return Types.KeySize256
     _     -> Left $ "invalid key size '" ++ arg ++ "'. The valid values are: 128, 192, 256"
+
+keyReader :: ReadM T.Text
+keyReader = eitherReader $ \arg -> validate arg
+    where validate input
+            | all isHexDigit input = return $ T.pack input
+            | otherwise = Left "Invalid input, the key must be a valid hexadecimal string"
