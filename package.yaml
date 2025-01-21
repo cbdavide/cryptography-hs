@@ -26,6 +26,7 @@ dependencies:
 - bytestring
 - text
 - binary
+- mtl
 
 ghc-options:
 - -Wall

@@ -1,7 +1,9 @@
 module Main (main) where
 
-import AESCipher.Types (AESCipherInput)
+import Control.Monad.Except
 import AESCipher.CLI (parseAESCipherInput)
+import AESCipher.Types (AESCipherInput)
+import AESCipher.Handler (processAESCipherHandler)
 import RandomNumberGenerator.CLI
 import RandomNumberGenerator.Types (RNGInput(..))
 import RandomNumberGenerator.Handler (processRNGCommand)
@@ -36,7 +38,15 @@ main = process =<< customExecParser (prefs showHelpOnEmpty) parseInputData
 
 process :: InputData -> IO ()
 process (RandomNumber input) = processRNGCommand input
-process (AESCipher _) = putStrLn "Hey!"
+process (AESCipher input) = processExceptTHandler (processAESCipherHandler input)
+
+processExceptTHandler :: ExceptT String IO () -> IO ()
+processExceptTHandler x = do
+    cmp <- runExceptT x
+
+    case cmp of
+        Left err -> fail err
+        Right _ -> return ()
 
 parseInputData :: ParserInfo InputData
 parseInputData = info (commands  <**> helper) (fullDesc <> progDesc "Cryptography utils")
