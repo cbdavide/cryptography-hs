@@ -1,5 +1,19 @@
 # Cryptography HS
 
+## Examples
+
+**Encrypt**
+
+```bash
+$ cryptography-hs-exe aes-cipher -e -s 128 -k 1ccd12a46d184b7c5a9bdff876aac2f2 -n a127e79c082cd1c8ce00daa2186029d5 -i input.txt -o output.txt
+```
+
+**Decrypt**
+
+```bash
+$ cryptography-hs-exe aes-cipher -d -s 128 -k 1ccd12a46d184b7c5a9bdff876aac2f2 -n a127e79c082cd1c8ce00daa2186029d5 -i output.txt -o plain.txt
+```
+
 ## External Dependencies
 
 * Botan >= 3.0.0 (follow these [instructions](https://botan.randombit.net/handbook/building.html) to build from source)
