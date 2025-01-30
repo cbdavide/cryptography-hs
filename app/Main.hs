@@ -29,7 +29,7 @@ cliCommands =
     , CLICommand
         { name = "aes-cipher"
         , parser = AESCipher <$> parseAESCipherInput
-        , modifiers = progDesc "Encrypt or decrypt using AES block cipher"
+        , modifiers = progDesc "Encrypt or decrypt using AES block cipher with the CBC cipher mode."
         }
     ]
 
