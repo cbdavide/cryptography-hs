@@ -25,6 +25,11 @@ parseAESCipherInput = Types.AESCipherInput
         <> long "key"
         <> help "Key to encrypt or decrypt the input data"
         )
+    <*> option nonceReader
+        (  short 'n'
+        <> long "nonce"
+        <> help "Nonce used to encrypt or decrypt the input data"
+        )
     <*> inputOption
     <*> outputOption
 
@@ -81,3 +86,10 @@ keyReader = eitherReader $ \arg -> validate arg
     where validate input
             | all isHexDigit input = return $ T.pack input
             | otherwise = Left "Invalid input, the key must be a valid hexadecimal string"
+
+nonceReader :: ReadM T.Text
+nonceReader = eitherReader $ \arg -> validate arg
+    where validate input
+            | length input /= 32 = Left $ "Invalid nonce length: expected 32 hex characters, but got " ++ show (length input)
+            | not (all isHexDigit input) = Left "Invalid input, the nonce must be a valid hexadecimal string"
+            | otherwise = return $ T.pack input

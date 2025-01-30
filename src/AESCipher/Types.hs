@@ -25,6 +25,7 @@ data AESCipherInput = AESCipherInput
     { operation     :: CipherOperation
     , keySize       :: KeySize
     , key           :: T.Text
+    , nonce         :: T.Text
     , input         :: Input
     , output        :: Output
     }
