@@ -4,9 +4,9 @@ module AESCipher.CLI
 ) where
 
 import Data.Char (isHexDigit)
-import Data.Maybe (fromMaybe)
-
 import Options.Applicative
+import IO.Options ( withStdinInputOption, withStdoutOutputOption )
+import IO.Types (Input(..), Output(..))
 import qualified AESCipher.Types as Types
 import qualified Data.Text as T
 
@@ -30,14 +30,12 @@ parseAESCipherInput = Types.AESCipherInput
         <> long "nonce"
         <> help "Nonce used to encrypt or decrypt the input data"
         )
-    <*> inputOption
-    <*> outputOption
+    <*> withStdinInputOption inputFileOption
+    <*> withStdoutOutputOption outputFileOption
 
-inputOption :: Parser Types.Input
-inputOption = fromMaybe Types.Stdin <$> optional inputFileOption
 
-inputFileOption :: Parser Types.Input
-inputFileOption = Types.InputFile <$>
+inputFileOption :: Parser Input
+inputFileOption = InputFile <$>
     strOption
         (  short 'i'
         <> long "input"
@@ -45,11 +43,8 @@ inputFileOption = Types.InputFile <$>
         <> help "File where the plain/cipher text is located (default: stdin)"
         )
 
-outputOption :: Parser Types.Output
-outputOption = fromMaybe Types.Stdout <$> optional outputFileOption
-
-outputFileOption :: Parser Types.Output
-outputFileOption = Types.OutputFile <$>
+outputFileOption :: Parser Output
+outputFileOption = OutputFile <$>
     strOption
         (  short 'o'
         <> long "output"

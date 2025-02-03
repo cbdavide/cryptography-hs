@@ -28,6 +28,9 @@ library
       AESCipher.CLI
       AESCipher.Handler
       AESCipher.Types
+      IO.FileSystem
+      IO.Options
+      IO.Types
       RandomNumberGenerator.CLI
       RandomNumberGenerator.Handler
       RandomNumberGenerator.Types

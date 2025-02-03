@@ -2,7 +2,8 @@ module AESCipher.Handler
 ( processAESCipherHandler
 ) where
 
-import AESCipher.Types (AESCipherInput (..), KeySize(..), CipherOperation(..), Input (Stdin, InputFile), Output (Stdout, OutputFile))
+import AESCipher.Types (AESCipherInput (..), KeySize(..), CipherOperation(..))
+import IO.Types (Input(..), Output(..))
 import Botan.BlockCipher (aes128, aes192, aes256)
 import Botan.Cipher (cbc, Cipher, cipherEncrypt, cipherDecrypt)
 import Botan.Utility (hexDecode)
