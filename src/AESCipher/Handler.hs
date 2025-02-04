@@ -3,15 +3,14 @@ module AESCipher.Handler
 ) where
 
 import AESCipher.Types (AESCipherInput (..), KeySize(..), CipherOperation(..))
-import IO.Types (Input(..), Output(..))
 import Botan.BlockCipher (aes128, aes192, aes256)
 import Botan.Cipher (cbc, Cipher, cipherEncrypt, cipherDecrypt)
+import IO.FileSystem (readInput, writeOutput)
 import Botan.Utility (hexDecode)
 import Control.Monad (unless)
 import Control.Monad.Except
 import Control.Monad.IO.Class (MonadIO(liftIO))
 import Data.Maybe (isJust, fromJust)
-import System.IO (stdin, stdout, Handle, openFile, IOMode (ReadMode, WriteMode), hClose)
 
 import qualified Data.Text as T
 import qualified Data.ByteString as BS
@@ -38,28 +37,6 @@ processAESCipherHandler x = do
         throwError $ "Failed to " ++ show (operation x) ++ " the input data."
 
     liftIO $ writeOutput (output x) (fromJust result)
-
-
-readInput :: Input -> IO BS.ByteString
-readInput input' = do
-    handle <- getInputHandle input'
-    inputData <- BS.hGetContents handle
-    hClose handle
-    return inputData
-
-getInputHandle :: Input -> IO Handle
-getInputHandle Stdin = return stdin
-getInputHandle (InputFile filePath) = openFile filePath ReadMode
-
-writeOutput :: Output -> BS.ByteString -> IO ()
-writeOutput output' data' = do
-    handle <- getOutputHandle output'
-    BS.hPut handle data'
-    hClose handle
-
-getOutputHandle :: Output -> IO Handle
-getOutputHandle Stdout = return stdout
-getOutputHandle (OutputFile filePath) = openFile filePath WriteMode
 
 encrypt :: PlainText -> CipherKey -> CipherNonce -> KeySize -> Maybe CipherText
 encrypt plaintext k nce ksize = Just $ cipherEncrypt cipher k nce plaintext
