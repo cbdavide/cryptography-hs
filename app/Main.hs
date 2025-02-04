@@ -4,6 +4,8 @@ import Control.Monad.Except
 import AESCipher.CLI (parseAESCipherInput)
 import AESCipher.Types (AESCipherInput)
 import AESCipher.Handler (processAESCipherHandler)
+import Hash.Types (HashInput)
+import Hash.CLI (parseHashInput)
 import RandomNumberGenerator.CLI
 import RandomNumberGenerator.Types (RNGInput(..))
 import RandomNumberGenerator.Handler (processRNGCommand)
@@ -16,7 +18,7 @@ data CLICommand a = CLICommand
     , modifiers   :: InfoMod a
     }
 
-data InputData = RandomNumber RNGInput | AESCipher AESCipherInput
+data InputData = RandomNumber RNGInput | AESCipher AESCipherInput | Hash HashInput
     deriving (Show)
 
 cliCommands :: [CLICommand InputData]
@@ -31,6 +33,11 @@ cliCommands =
         , parser = AESCipher <$> parseAESCipherInput
         , modifiers = progDesc "Encrypt or decrypt using AES block cipher with the CBC cipher mode."
         }
+    , CLICommand
+        { name = "hash"
+        , parser = Hash <$> parseHashInput
+        , modifiers = progDesc "Hash the input data"
+        }
     ]
 
 main :: IO ()
@@ -39,6 +46,7 @@ main = process =<< customExecParser (prefs showHelpOnEmpty) parseInputData
 process :: InputData -> IO ()
 process (RandomNumber input) = processRNGCommand input
 process (AESCipher input) = processExceptTHandler (processAESCipherHandler input)
+process (Hash _) = undefined
 
 processExceptTHandler :: ExceptT String IO () -> IO ()
 processExceptTHandler x = do
