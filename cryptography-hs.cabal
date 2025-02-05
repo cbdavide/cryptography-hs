@@ -29,6 +29,7 @@ library
       AESCipher.Handler
       AESCipher.Types
       Hash.CLI
+      Hash.Handler
       Hash.Types
       IO.FileSystem
       IO.Options

@@ -5,6 +5,7 @@ import AESCipher.CLI (parseAESCipherInput)
 import AESCipher.Types (AESCipherInput)
 import AESCipher.Handler (processAESCipherHandler)
 import Hash.Types (HashInput)
+import Hash.Handler (processHash)
 import Hash.CLI (parseHashInput)
 import RandomNumberGenerator.CLI
 import RandomNumberGenerator.Types (RNGInput(..))
@@ -46,7 +47,7 @@ main = process =<< customExecParser (prefs showHelpOnEmpty) parseInputData
 process :: InputData -> IO ()
 process (RandomNumber input) = processRNGCommand input
 process (AESCipher input) = processExceptTHandler (processAESCipherHandler input)
-process (Hash _) = undefined
+process (Hash input) = processExceptTHandler (processHash input)
 
 processExceptTHandler :: ExceptT String IO () -> IO ()
 processExceptTHandler x = do
