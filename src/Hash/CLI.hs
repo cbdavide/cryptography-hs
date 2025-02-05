@@ -23,11 +23,18 @@ parseHashInput = Types.HashInput
         (  short 's'
         <> long "digest-size"
         <> value Types.Size256
-        <> help ("Size of the key: " ++ validOuptputSizes)
+        <> help ("Size of the digest: " ++ validOuptputSizes)
         <> showDefaultWith (const "256")
         )
     <*> withStdinInputOption inputFileOption
     <*> withStdoutOutputOption outputFileOption
+    <*> option auto
+        (  short 'e'
+        <> long "encoding"
+        <> value Types.Hex
+        <> help "Encoding of the digest: Hex, Base64"
+        <> showDefault
+        )
 
 
 inputFileOption :: Parser Input
